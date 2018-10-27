@@ -1,0 +1,84 @@
+{% set img = '' %}
+{% if user.img == null %}
+    {% set img = 'user.png' %}
+{% else %}
+    {% set img = user.img %}
+{% endif %}
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper ov-hidden">
+            <a href="{{ path('panel_teachers') }}" class="brand-logo center">
+                <img class="imgLogo" src="{{ asset('img/logo-admin.png') }}" alt="">
+            </a>
+            <ul id="nav-mobile" class="left">
+                <li>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger">
+                        <i class="small material-icons">apps</i>
+                    </a>
+                </li>
+            </ul>
+            <a href="{{ path('perfil',{'id':user.getId()}) }}" class="brand-logo img_user_distribution mt-1 mr-1 right">
+                <img class="circle" src="{{ asset('img/photos/' ~ img) }}" alt="">
+            </a>
+
+        </div>
+    </nav>
+</div>
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view backgroundUserMenu">
+            <a href="{{ path('perfil',{'id':user.getId()}) }}">
+                <img class="circle" src="{{ asset('img/photos/' ~ img) }}">
+            </a>
+            <a href="{{ path('perfil',{'id':user.getId()}) }}">
+                <span class="white-text name">{{ user.username }}</span>
+            </a>
+            <a href="{{ path('perfil',{'id':user.getId()}) }}">
+                <span class="white-text email">{{ user.getFirstName() }} {{ user.getLastName() }}</span>
+            </a>
+            <div class="pw-1">
+                <a href="{{ path('fos_user_security_logout') }}" class="waves-effect waves-light btn-small red">
+                    <i class="small material-icons">power_settings_new</i>
+                </a>
+            </div>
+
+        </div>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_teachers') }}">
+            <i class="small material-icons">school</i>Profesores</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_cycles') }}">
+            <i class="small material-icons">group</i>Ciclos</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_groups') }}">
+            <i class="small material-icons">group_work</i>Grupos</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_modules') }}">
+            <i class="small material-icons">description</i>Módulos</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_modules_teachers') }}">
+            <i class="small material-icons">compare_arrows</i>Módulos-profesor</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_courses') }}">
+            <i class="small material-icons">today</i>Cursos académicos</a>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_config') }}">
+            <i class="small material-icons">settings</i>
+            Configuración
+        </a>
+    </li>
+</ul>
+
+
+
+

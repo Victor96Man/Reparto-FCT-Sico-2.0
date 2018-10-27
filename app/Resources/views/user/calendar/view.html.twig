@@ -1,0 +1,90 @@
+{% extends 'user/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <h2 align="center"><b>Calendario</b><b id="grupoCalendar"></b></h2><br/>
+        <div class="row centerVertical mb-1">
+            <div class="col m6 s12">
+                <a href="{{ path('table_calendar_events') }}" class="waves-effect waves-light btn">Crear/modificar
+                    calendario</a>
+            </div>
+            <div class="col m6 s12">
+                <div>
+                    <select name="" id="selectGroupCalendar">
+                        <option value="todos">- Elija grupo -</option>
+                        {% for group in groups %}
+                            <option value="{{ group.__toString() }}">{{ group.__toString() }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div id='calendar' class="z-depth-1 p-2"></div>
+    </div>
+
+    <script type="text/javascript">
+        let getCalendar = function (arrayEvents) {
+            $('#calendar').fullCalendar( 'removeEvents');
+            $('#calendar').fullCalendar('addEventSource', arrayEvents);
+            $('#calendar').fullCalendar({
+                lang: 'es',
+                defaultView: 'agendaWeek',
+                weekends: false, // Esconder Sábados y Domingos
+                minTime: '08:00:00',
+                maxTime: '16:00:00',
+                height: "auto",
+
+                // header
+                header: {
+                    left: '',
+                    center: '',
+                    right: ''
+                },
+
+                //events
+                events: arrayEvents,
+            });
+        };
+
+        let selectGroupCalendar = function () {
+            let events = "";
+            let arrayEvents = [];
+            let group = $(this).val();
+            $('#grupoCalendar').text(' / '+ group);
+            $.ajax({
+                type: "GET",
+                url: "{{ path('get_events_data') }}",
+                data: {'group': group},
+                success: function (response) {
+                    events = JSON.parse(response.events);
+
+                    if (!events) {
+                        arrayEvents = [];
+                    } else {
+                        events.forEach(function (event) {
+                            arrayEvents.push({
+                                'title': event.module,
+                                'start': event.initHour,
+                                'end': event.finalHour,
+                                'color': event.color,
+                                'textColor': '#000'
+                            });
+                        });
+                    }
+
+                    getCalendar(arrayEvents);
+
+                }
+            });
+
+
+        };
+
+        $(function () {
+            $("#selectGroupCalendar").on("change", selectGroupCalendar);
+            getCalendar([]);
+        });
+
+    </script>
+{% endblock %}

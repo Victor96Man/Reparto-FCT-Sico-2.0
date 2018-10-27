@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+{% block title %}SICO: Reparto{% endblock %}
+{% block nav %}
+    {{ render(controller('AppBundle:UserDashboard:dashboard')) }}
+{% endblock %}
+{% block body %}
+    <div class="row mt-1">
+        <div class="col s12 m4">
+            <h5>Alumnos</h5>
+            <table class="responsive-table centered z-depth-1">
+                <thead class="table-sticky">
+                <tr>
+                    <th>Nombre</th>
+                    <th>PI</th>
+                    <th>FCT</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td><a href="{{ path('edit_student', {'id': student.id, 'flag': 'index'}) }}">{{ student.__toString() }}</a></td>
+                        <td><a href="{{ student.pi_tutor == '~' ? path('user_pi_new_distribution_project', {'project': student.pi_id, 'flag': 'index','student': student.id}) : path('user_pi_edit_distribution_project',{'id':student.pi_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>school</i>{{ student.pi_tutor }}
+                        </div>
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>description</i>{{ student.pi_project }}
+                        </div>
+                    "><i class="material-icons {{ student.pi_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i></a></td>
+                        <td><a href="{{ student.fct_tutor == '~' ? path('user_fct_new_distribution_company', {'company': student.fct_id, 'flag': 'index','student': student.id}) : path('user_fct_edit_distribution_company',{'id':student.fct_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>school</i>{{ student.fct_tutor }}
+                        </div>
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>domain</i>{{ student.fct_company }}
+                        </div>
+                    "><i class="material-icons {{ student.fct_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col s12 m8">
+            <h5>Profesores</h5>
+            <table class="responsive-table centered z-depth-1">
+                <thead class="hide-on-med-and-down">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_reduction" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div></th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_rest_ideal" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div></th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_rest_ideal_ciclo" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_rest_ideal_reduc" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <thead class="table-sticky">
+                <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>PI</th>
+                    <th>FCT</th>
+                    <th class="cl_reduction cl-h">Reducción </th>
+                    <th class="cl_rest_ideal cl-h">Segundo curso</th>
+                    <th class="cl_rest_ideal_ciclo cl-h">Ciclo completo</th>
+                    <th class="cl_rest_ideal_reduc cl-h">Reducción segundo</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    {% set img = '' %}
+                    {% if user.getTeacher().getImg() == null %}
+                        {% set img = 'user.png' %}
+                    {% else %}
+                        {% set img = user.getTeacher().getImg() %}
+                    {% endif %}
+                    <tr>
+
+                        <td><div class="img_user_distribution"><img src="{{ asset('img/photos/' ~ img) }}" alt=""></div></td>
+                        <td>{{ user.getTeacher().getUsername() }}</td>
+                        <td>{{ user.getPI() }}</td>
+                        <td>{{ user.getFCT() }}</td>
+                        <td class="cl_reduction cl-h">{{ user.getReduction() }}</td>
+                        <td class="cl_rest_ideal cl-h {{ valclass(user.getRestIdeal()) }}">{{ user.getRestIdeal() }}</td>
+                        <td class="cl_rest_ideal_ciclo cl-h {{ valclass(user.getRestIdealCycle()) }}">{{ user.getRestIdealCycle() }}</td>
+                        <td class="cl_rest_ideal_reduc cl-h {{ valclass(user.getRestIdealReduc()) }}">{{ user.getRestIdealReduc() }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

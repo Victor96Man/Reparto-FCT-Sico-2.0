@@ -1,0 +1,97 @@
+{% extends 'user/base.html.twig' %}
+{% block title %}SICO: Gestión de alumnos{% endblock %}
+{% block body %}
+    <h2>Gestión de alumnos</h2>
+    <div class="row centerVertical">
+        <div class="col s12 m9">
+            <a href="{{ path('new_student') }}" class="waves-effect waves-light btn" id="createStudent">Crear alumnos</a>
+        </div>
+        <div class="col s12 m3 ">
+            <select name="" id="selectCycleStudent">
+                <option value="todos">- Elija ciclo -</option>
+                {% for cycle in cycles %}
+                    <option value="{{ cycle.initials }}">{{ cycle.initials }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <table class="responsive-table z-depth-1 centered mt-2">
+        <thead class="table-sticky">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Ciclo</th>
+            <th>Curso</th>
+            <th>Convocatoria</th>
+            <th>Modificar</th>
+            <th>Borrar</th>
+        </tr>
+        </thead>
+        <tbody id="studentsTable">
+        {% for student in students %}
+            <tr>
+                <td>{{ student[0].first_name }}</td>
+                <td>{{ student[0].last_name }}</td>
+                <td>{{ student.cycle }}</td>
+                <td>{{ student.course }}</td>
+                <td>{{ student.convocatory }}</td>
+                <td>
+                    <a href="{{ path('edit_student', {'id': student[0].id, 'flag': 'edit'}) }}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalStudent" href="{{ path('delete_student', {'id': student[0].id}) }}"
+                       class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal Structure -->
+    <div id="modalStudent" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el estudiante?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
+
+    <script>
+        {
+            let selectCycleStudents = function () {
+                let tr, td, i;
+                let ciclo = $(this).val();
+
+                tr = $("#studentsTable tr");
+
+                for (i = 0; i < tr.length; i++) {
+                    if (ciclo === "todos") {
+                        tr[i].style.display = "";
+                    } else {
+                        td = tr[i].getElementsByTagName("td")[2];
+                        if (td) {
+                            if (td.innerHTML.toUpperCase().indexOf(ciclo) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            };
+
+
+            $(function () {
+                $("#selectCycleStudent").on("change", selectCycleStudents);
+            });
+        }
+    </script>
+{% endblock %}

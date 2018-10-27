@@ -1,0 +1,226 @@
+{% extends 'user/base.html.twig' %}
+{% block title %}SICO: FCT{% endblock %}
+{% block body %}
+    <h3 class="col s12">FCT</h3>
+    <div class="row">
+        <div class="col s12 p-0">
+            <ul class="tabs z-depth-2 mb-2">
+                <li class="tab col s3">
+                    <a href="#emp" class="active">Empresas</a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#solemp">Solicitudes empresas</a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#asign">Asignaciones</a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#tutor">Tutor/a</a>
+                </li>
+            </ul>
+        </div>
+        <div id="emp" class="col s12 p-1">
+            <h5>Empresas</h5>
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a href="{{ path('user_fct_new_company') }}" class="waves-effect waves-light btn-small">
+                        Nueva empresa
+                    </a>
+                </div>
+            </div>
+
+            <table class="responsive-table centered z-depth-1">
+                <thead class="table-sticky">
+                <tr>
+                    <th>Nombre</th>
+                    <th>CIF</th>
+                    <th>Mas info</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for company in companies %}
+                    <tr>
+                        <td>{{ company.name }}</td>
+                        <td>{{ company.cif }}</td>
+                        <td>
+                            <a href="{{ path('user_fct_show_company', {'id': company.id}) }}">
+                                <i class="small material-icons">info</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('user_fct_edit_company', {'id': company.id}) }}">
+                                <i class="small material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a data-modal="modalCompany" class="modalDelete" href="{{ path('user_fct_delete_company', {'id': company.id}) }}">
+                                <i class="small material-icons red-text">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Modal Structure -->
+            <div id="modalCompany" class="modal">
+                <div class="modal-content">
+                    <p>¿Está seguro de borrar la empresa?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#"
+                       class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                    <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        <div id="solemp" class="col p-1 s12 ">
+            <form action="{{ path('user_fct_massive_request_company')}}" method="post">
+                <h5>Solicitudes empresas</h5>
+                <div class="row">
+                    <div class="col s12 right-align">
+                        <button class="waves-effect waves-light btn-small green" type="submit" name="savemassive">
+                            <i class="material-icons left">save</i>Guardar como empresa
+                        </button>
+                        <button class="waves-effect waves-light btn-small red" type="submit" name="deletemassive">
+                            <i class="material-icons left">delete</i>Eliminar
+                        </button>
+                        <a href="{{ path('user_fct_reqcom') }}" class="waves-effect waves-light btn-small">
+                            <i class="material-icons left">cloud_upload</i>Importar
+                        </a>
+                    </div>
+                </div>
+
+                <table class="responsive-table centered z-depth-1">
+                    <thead class="table-sticky">
+                    <tr>
+                        <th>Empresa</th>
+                        <th>CIF</th>
+                        <th>Alumnos solicitados</th>
+                        <th class="centerCheckboxTH">Seleccionadas
+                            <label>
+                                <input type="checkbox" id="boxSolcAll"/>
+                                <span></span>
+                            </label>
+                        </th>
+                        <th>Mas info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for request in request_companies %}
+                        <tr>
+                            <td>{{ request.getNameCompany() }}</td>
+                            <td>{{ request.getCif() }}</td>
+                            <td>{{ request.getNumberOfDaw() + request.getNumberOfAsir() }}</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" class="boxesSolc" name="solc[{{ request.getId() }}]" />
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <a href="{{ path('user_fct_show_request_company',{'id': request.getId()}) }}">
+                                    <i class="small material-icons">info</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+                <!-- Modal Structure -->
+                <div id="modalReq" class="modal">
+                    <div class="modal-content">
+                        <p>¿Está seguro de borrar las solicitudes?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#"
+                           class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                        <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="asign" class="col p-1 s12">
+            <h5>Asignaciones</h5>
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a href="{{ path('user_fct_new_distribution_company',{'company': '~', 'flag': '~','student':'~'}) }}" class="waves-effect waves-light btn-small">
+                        Nueva asignación
+                    </a>
+                </div>
+            </div>
+
+            <table class="responsive-table centered z-depth-1">
+                <thead class="table-sticky">
+                <tr>
+                    <th>Empresa</th>
+                    <th>Alumno</th>
+                    <th>Tutor</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for distribution in distribution_companies %}
+                    <tr>
+                        <td>{{ distribution.company_name }}</td>
+                        <td>{{ distribution.student_name }}</td>
+                        <td>{{ distribution.user_name }}</td>
+                        <td>
+                            <a href="{{ path('user_fct_edit_distribution_company',{'id': distribution.id, 'flag': 'edit'}) }}">
+                                <i class="small material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a data-modal="modalAsign" class="modalDelete" href="{{ path('user_fct_delete_distribution_company',{'id': distribution.id}) }}">
+                                <i class="small material-icons red-text">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- Modal Structure -->
+            <div id="modalAsign" class="modal">
+                <div class="modal-content">
+                    <p>¿Está seguro de borrar la asignaciónasignación?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#"
+                       class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                    <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        <div id="tutor" class="col p-1 s12">
+            <h5>Tutor/a de FCT</h5>
+            <table class="responsive-table centered z-depth-1">
+                <thead class="table-sticky">
+                <tr>
+                    <th>Empresa</th>
+                    <th>Más info</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for company in companiesTutor %}
+                    <tr>
+                        <td>{{ company.getName() }}</td>
+                        <td>
+                            <a href="{{ path('user_fct_show_company', {'id': company.getId()}) }}">
+                                <i class="small material-icons">info</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'panel/base.html.twig' %}
+{% block title %}SICO: Módulos{% endblock %}
+{% block body %}
+    <h2>Gestión de módulos</h2>
+    <div class="row centerVertical">
+        <div class="col s12 m9">
+            <a href="{{ path('new_module') }}" class="waves-effect waves-light btn">Crear módulo</a>
+        </div>
+        <div class="col s12 m3 ">
+            <select name="" id="selectCycleModule">
+                <option value="todos">- Elija curso -</option>
+
+                {% for course in courses %}
+                    <option value="{{ course.__toString() }}">{{ course.__toString() }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <table class="responsive-table z-depth-1 centered mt-2">
+        <thead class="table-sticky">
+        <tr>
+            <th>Módulo</th>
+            <th>Curso</th>
+            <th>Horas</th>
+            <th>Horas desdoble</th>
+            <th>Modificar</th>
+            <th>Borrar</th>
+        </tr>
+        </thead>
+
+        <tbody id="modulesTable">
+        {% for module in modules %}
+            <tr>
+                <td>{{ module[0].initials }}</td>
+                <td>{{ module.course }}</td>
+                <td>{{ module[0].hours }}</td>
+                <td>{{ module[0].hoursDesdoble }}</td>
+                <td>
+                    <a href="{{ path('edit_module', {'id': module[0].id}) }}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalModule" href="{{ path('delete_module', {'id': module[0].id}) }}"
+                       class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal Structure -->
+    <div id="modalModule" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el módulo?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
+
+    <script>
+        {
+            let selectCourseModule = function () {
+                let tr, td, i;
+                let convocatoria = $(this).val();
+
+                tr = $("#modulesTable tr");
+
+                for (i = 0; i < tr.length; i++) {
+
+                    if (convocatoria === "todos") {
+                        tr[i].style.display = "";
+                    } else {
+                        td = tr[i].getElementsByTagName("td")[1];
+
+                        if (td) {
+                            if (td.innerHTML.toUpperCase() === convocatoria.toUpperCase()) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            };
+
+            $(function () {
+                $("#selectCycleModule").on("change", selectCourseModule);
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'user/base.html.twig' %}
+{% block title %}SICO: {{ title }}{% endblock %}
+{% block body %}
+    <h3 class="col s12">{{ title }}</h3>
+    <div class="row z-depth-2 p-2">
+        <a href="{{ path('user_fct') }}" class="waves-effect waves-light btn red" style="float: right">
+            <i class="large material-icons">close</i>
+        </a>
+        <form method="POST" action="{{ path('user_fct_reqcom') }}" enctype="multipart/form-data">
+            <label for="email">Solicitudes a subir</label>
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>.xlsx</span>
+                    <input type="file" name="file_uploaded">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light w-100 green" type="submit" name="btn_submit">
+                <i class="material-icons center">cloud_upload</i>
+            </button>
+            <blockquote class="grey-text">
+                - Sube aquí el documento excel con todas las solicitudes de empresas (solicitudes FCT).
+                <br>- Respeta el formato descrito en la <a
+                        href="https://github.com/Miangame/Sico-Proyecto-Integrado-2018/wiki/Requisitos" target="_blank">documentación</a>
+                de la web.
+                <br>- Se indicará la primera línea errónea en caso de error en la lectura de las empresas. Entonces,
+                revisa el documento.
+            </blockquote>
+        </form>
+        {% if error != "" %}
+            <div class="card-panel p-1 col s-12 w-100">
+                <p class="red-text text-darken-2">*{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

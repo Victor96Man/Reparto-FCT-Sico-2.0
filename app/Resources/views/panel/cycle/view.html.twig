@@ -1,0 +1,54 @@
+{% extends 'panel/base.html.twig' %}
+{% block title %}SICO: Ciclos{% endblock %}
+{% block body %}
+    <h2>Gestión de ciclos</h2>
+    <a href="{{ path('new_cycle') }}" class="waves-effect waves-light btn">Crear ciclo</a>
+    <table class="responsive-table z-depth-1 centered mt-2">
+        <thead class="table-sticky">
+        <tr>
+            <th>Ciclo</th>
+            <th>1º Horas titulares/semana</th>
+            <th>1º Horas desdoble/semana</th>
+            <th>2º Horas titulares/semana</th>
+            <th>2º Horas desdoble/semana</th>
+            <th>Modificar</th>
+            <th>Borrar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for cycle in cycles %}
+            <tr>
+                <td>{{ cycle.initials }}</td>
+                <td>{{ cycle.titularHours1 }}</td>
+                <td>{{ cycle.desdobleHours1 }}</td>
+                <td>{{ cycle.titularHours2 }}</td>
+                <td>{{ cycle.desdobleHours2 }}</td>
+                <td>
+                    <a href="{{ path('edit_cycle', {'id': cycle.id}) }}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalCycle" href="{{ path('delete_cycle', {'id': cycle.id}) }}"
+                       class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal Structure -->
+    <div id="modalCycle" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el ciclo?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
+{% endblock %}

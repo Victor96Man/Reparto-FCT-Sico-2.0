@@ -1,0 +1,314 @@
+//SIZES
+$sizeSSmall: 10px
+$sizeSmall: 20px
+$sizeMedium: 40px
+$sizeLargue: 60px
+
+$text-small: 0.5rem
+$text-medium: 0.8rem
+$text-normal: 1rem
+$text-large: 2rem
+
+
+//SIZES TEXT
+.text-s
+    font-size: $text-small
+.text-m
+    font-size: $text-medium
+.text-n
+    font-size: $text-normal
+.text-l
+    font-size: $text-large
+// MARGIN'S
+.m-0
+    margin: 0px !important
+.m-1
+    margin: 10px !important
+.mb-1
+    margin-bottom: $sizeSSmall !important
+.mb-2
+    margin-bottom: $sizeSmall !important
+.mb-4
+    margin-bottom: $sizeMedium !important
+.mt-1
+    margin-top: $sizeSSmall !important
+.mt-2
+    margin-top: $sizeSmall !important
+.mt-4
+    margin-top: $sizeMedium !important
+.mr-1
+    margin-right: $sizeSSmall !important
+.mr-2
+    margin-right: $sizeSmall !important
+.mr-4
+    margin-right: $sizeMedium !important
+.ml-1
+    margin-left: $sizeSSmall !important
+.ml-2
+    margin-left: $sizeSmall !important
+.ml-4
+    margin-left: $sizeMedium !important
+
+// PADING'S
+.p-0
+    padding: 0px !important
+.p-1
+    padding: $sizeSSmall !important
+.p-2
+    padding: $sizeSmall !important
+.p-4
+    padding: $sizeMedium !important
+.p-6
+    padding: $sizeLargue !important
+
+.ph-1
+    padding-left: $sizeSSmall !important
+    padding-right: $sizeSSmall !important
+.ph-2
+    padding-left: $sizeSmall !important
+    padding-right: $sizeSmall !important
+.ph-4
+    padding-left: $sizeMedium !important
+    padding-right: $sizeMedium !important
+
+.pw-1
+    padding-top: $sizeSSmall !important
+    padding-bottom: $sizeSSmall !important
+.pw-2
+    padding-top: $sizeSmall !important
+    padding-bottom: $sizeSmall !important
+.pw-4
+    padding-top: $sizeMedium !important
+    padding-bottom: $sizeMedium !important
+
+//WIDTH'S
+.w-100
+    width: 100%
+
+//OVERFLOW
+.ov-hidden
+    overflow: hidden
+
+// BORDERS
+.br-1
+    border: 1px solid #e0e0e0
+    border-radius: 5px
+    padding: 20px !important
+    box-sizing: border-box !important
+// TEXT
+.text-justify-total
+    text-align: justify
+.backgroundUserMenu
+    background: #01161E
+
+.sidenav-trigger
+    display: block !important
+
+.imgLogo
+    height: 70px
+  
+#mainAdmin
+    display: flex
+    flex-flow: column
+
+.userLoged
+    
+.allHeight
+    height: 100vh
+.centerVertical
+    display: flex
+    padding: 0px
+    margin: 0px
+    align-items: center
+    
+.centerTotalVertical
+    display: flex
+    padding: 0px
+    margin: 0px
+    justify-content: center
+    align-items: center
+    flex-flow: column
+
+.centerVertical
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+
+.centerTotal
+    display: flex
+    justify-content: center
+    align-items: center
+#logo-login
+    width: 40%
+
+.attributeUser
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    p
+        margin-left: 10px
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+.align-horizontal-center
+    display: flex
+    align-items: center
+    flex-flow: column
+.subtitle-collection
+    font-size: 0.8rem
+    color: grey
+
+.msg_toast_error
+    background: #E53935 !important
+.msg_toast_success
+    background: #40c950 !important
+.msg_toast
+    display: grid
+    grid-template-columns: 1fr auto
+    grid-gap: 10px
+
+.tooltip
+    display: grid
+    grid-template-columns: auto 1fr
+    grid-gap: 10px
+    text-align: left
+
+// States Point Teachers
+.warning_state,.ok_state,.warning_up_state
+    color: #FFF
+.warning_state
+    background: #ff7b7b
+.ok_state
+    background: #6de076
+.warning_up_state
+    background: #6caadd
+
+form>div>div>ul>li
+    color: #ed1515
+
+
+.img-perfil-company
+    height: 100px
+
+#containerSelectCycleStudent, #containerSelectConvocatoryStudent, #containerSelectCourseStudent, #containerSelectCourseDistribution
+    float: right
+    margin: 10px
+
+body 
+    display: flex
+    min-height: 100vh
+    flex-direction: column
+
+main
+    flex: 1 0 auto
+
+.actualHours td,th
+    text-align: center
+
+.imgPerfil
+    position: relative
+    overflow: hidden
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    background: #6f6f6f
+    border-radius: 50%
+    width: 150px
+    height: 150px
+    padding: 0px !important
+    &:hover
+        & img
+            opacity: 0.8
+        & .icon_upload
+            color: #FFF
+            opacity: 1
+    img
+        height: 100%
+        width: auto
+        opacity: 1
+        transition: all 0.5s
+
+    .icon_upload
+        color: #FFF
+        position: absolute
+        transition: all 0.5s
+        opacity: 0
+        
+
+// Request Company
+.rc_company_company
+    .containerImg_rc_Company
+        display: flex
+        justify-content: center
+        align-items: center
+        img
+            width: 40%
+    .containerInfo_prev_rc_company
+        padding: 20px
+        box-sizing: border-box
+        #titleInfo_prev_rc_company
+            font-size: 1.3rem
+            font-weight: bold
+// Ocultar elemento
+.hide-element
+    opacity: 0
+    width: 0px
+    overflow: hidden
+// Animar elemento
+.cl-h
+    transition: all 0.5s
+//---------
+
+.img_user_distribution
+    width: 40px
+    height: 40px
+    background: #6f6f6f
+    border-radius: 50%
+    overflow: hidden
+    font-size: 0px !important
+    padding: 0px !important
+    img
+        height: 100%
+        width: auto
+
+.table-sticky
+    tr
+        th
+            background: #ffffff
+            position: sticky
+            top: 64px
+            z-index: 10
+
+.fc-day-grid, .fc-divider, .fc-toolbar
+    display: none !important
+
+.containerErrorServer
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-flow: column
+    height: 100vh
+    img
+        width: 50vw
+
+.centerCheckboxTH
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    label
+        margin-left: 10px
+@keyframes hover_btn_error
+    0%
+        min-width: 10%
+    50%
+        min-width: 30%
+    100%
+        min-width: 20%
+.btn_back_error
+    border-radius: 100px
+    animation: hover_btn_error 0.5s
+    background: #BF4089
+    min-width: 20%
+    &:hover
+        min-width: 20%

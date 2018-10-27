@@ -1,0 +1,86 @@
+{% set img = '' %}
+{% if user.img == null %}
+    {% set img = 'user.png' %}
+{% else %}
+    {% set img = user.img %}
+{% endif %}
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper ov-hidden">
+            <a href="{{ path('index_web') }}" class="brand-logo center">
+                <img class="imgLogo" src="{{ asset('img/logo.png') }}" alt="">
+            </a>
+            <ul id="nav-mobile" class="left">
+                <li>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger">
+                        <i class="small material-icons">apps</i>
+                    </a>
+                </li>
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="mr-4 mt-1">
+                    <a href="{{ path('user_config', {'id': user.id}) }}"><h6>{{ convocatory }}</h6></a>
+                </li>
+                <li class="ml-1">
+                    <a href="{{ path('perfil',{'id':user.getId()}) }}" class="brand-logo img_user_distribution mt-1 right">
+                        <img src="{{ asset('img/photos/' ~ img) }}" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view backgroundUserMenu">
+            <a href="{{ path('perfil',{'id':user.getId()}) }}">
+                <img class="circle" src="{{ asset('img/photos/' ~ img) }}">
+            </a>
+            <a href="{{ path('perfil',{'id':user.getId()}) }}">
+                <span class="white-text name">{{ user.username }}</span>
+            </a>
+            <a href="{{ path('perfil',{'id':user.getId()}) }}">
+                <span class="white-text email">{{ user.getFirstName() }} {{ user.getLastName() }}</span>
+            </a>
+            <div class="divider"></div>
+            <a href="{{ path('user_config', {'id': user.id}) }}">
+                <span class="white-text email pw-1">{{ convocatory }}</span>
+            </a>
+            <div class="pw-1">
+                <a href="{{ path('fos_user_security_logout') }}" class="waves-effect waves-light btn-small red">
+                    <i class="small material-icons">power_settings_new</i>
+                </a>
+
+            </div>
+        </div>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('index_web') }}">
+            <i class="small material-icons">compare_arrows</i>Reparto</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('panel_students') }}">
+            <i class="small material-icons">account_circle</i>Alumnos</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('user_fct') }}">
+            <i class="small material-icons">domain</i>FCT</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('user_pi') }}">
+            <i class="small material-icons">description</i>PI</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('user_calendar_view') }}">
+            <i class="small material-icons">event</i>Calendario</a>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li>
+        <a class="waves-effect" href="{{ path('user_config',{'id': user.id}) }}">
+            <i class="small material-icons">settings</i>
+            Configuración
+        </a>
+    </li>
+</ul>
