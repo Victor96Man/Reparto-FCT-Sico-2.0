@@ -30,6 +30,12 @@ class StudentType extends AbstractType
                 'choices' => $options["convocatories"],
                 'data' => $options["convocatory_selected"]
                 ))
+            ->add('piexcepto', CheckboxType::class, array(
+                'label' => false
+            ))
+            ->add('ftexcepto', CheckboxType::class, array(
+                'label' => false
+            ))
             ->add('save', SubmitType::class, array('label' => 'Aceptar','attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
 

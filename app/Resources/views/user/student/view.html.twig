@@ -22,8 +22,6 @@
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Ciclo</th>
-            <th>Curso</th>
-            <th>Convocatoria</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -34,8 +32,6 @@
                 <td>{{ student[0].first_name }}</td>
                 <td>{{ student[0].last_name }}</td>
                 <td>{{ student.cycle }}</td>
-                <td>{{ student.course }}</td>
-                <td>{{ student.convocatory }}</td>
                 <td>
                     <a href="{{ path('edit_student', {'id': student[0].id, 'flag': 'edit'}) }}">
                         <i class="small material-icons">edit</i>

@@ -56,6 +56,16 @@ class Student
     private $convocatory;
 
     /**
+     * @ORM\Column(name="piexcepto", type="boolean", nullable=false)
+     */
+    private $piexcepto;
+
+    /**
+     * @ORM\Column(name="fctexcepto", type="boolean", nullable=false)
+     */
+    private $fctexcepto;
+
+    /**
      * Get id
      *
      * @return int
@@ -112,6 +122,56 @@ class Student
     {
         return $this->last_name;
     }
+
+    /**
+     * Get PiExcepto
+     *
+     * @return int
+     */
+    public function getPiExcepto()
+    {
+        return $this->piexcepto;
+    }
+
+    /**
+     * Set PiExcepto
+     *
+     * @param int $piExcepto
+     *
+     * @return Student
+     */
+    public function setPiExcepto($piExcepto)
+    {
+        $this->piexcepto = $piExcepto;
+
+        return $this;
+    }
+
+    /**
+     * Get FctExcepto
+     *
+     * @return int
+     */
+    public function getFctExcepto()
+    {
+        return $this->fctexcepto;
+    }
+
+    /**
+     * Set fctExcepto
+     *
+     * @param int $fctExcepto
+     *
+     * @return Student
+     */
+    public function setPiExcepto($fctExcepto)
+    {
+        $this->fctexcepto = $fctExcepto;
+
+        return $this;
+    }
+
+    
 
     /**
      * Constructor
