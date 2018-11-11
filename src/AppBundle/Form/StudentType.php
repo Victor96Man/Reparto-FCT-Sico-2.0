@@ -34,7 +34,7 @@ class StudentType extends AbstractType
             ->add('piexcepto', CheckboxType::class, array(
                 'label' => false
             ))
-            ->add('ftexcepto', CheckboxType::class, array(
+            ->add('fctexcepto', CheckboxType::class, array(
                 'label' => false
             ))
             ->add('save', SubmitType::class, array('label' => 'Aceptar','attr' => ['class' => 'w-100 waves-effect waves-light btn']));
