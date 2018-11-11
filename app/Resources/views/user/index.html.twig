@@ -45,7 +45,15 @@
                         <div class='tooltip'>
                             <i class='material-icons tiny'>domain</i>{{ student.fct_company }}
                         </div>
-                    "><i class="material-icons {{ student.fct_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i></a></td>
+                    ">
+                    {% if student.fctexcpto %}
+                    <i class="material-icons {{ student.fct_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i>
+                    {% else %}
+                    <i class=" material-icons black-text">brightness_1</i>
+                    {% endif %}
+                    
+
+                </a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
