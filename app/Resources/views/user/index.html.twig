@@ -26,7 +26,18 @@
                         <div class='tooltip'>
                             <i class='material-icons tiny'>description</i>{{ student.pi_project }}
                         </div>
-                    "><i class="material-icons {{ student.pi_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i></a></td>
+                    ">
+
+                    {% if student.piexcpto %}
+                    <i class="material-icons {{ student.pi_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i>
+                    {% else %}
+                    <i class=" material-icons black-text">brightness_1</i>
+                    {% endif %}
+                
+
+                </a></td>
+
+
                         <td><a href="{{ student.fct_tutor == '~' ? path('user_fct_new_distribution_company', {'company': student.fct_id, 'flag': 'index','student': student.id}) : path('user_fct_edit_distribution_company',{'id':student.fct_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
                             <i class='material-icons tiny'>school</i>{{ student.fct_tutor }}
