@@ -164,7 +164,7 @@ class Student
      *
      * @return Student
      */
-    public function setPiExcepto($fctExcepto)
+    public function setFctExcepto($fctExcepto)
     {
         $this->fctexcepto = $fctExcepto;
 
