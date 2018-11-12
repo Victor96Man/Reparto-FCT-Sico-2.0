@@ -28,8 +28,8 @@
                         </div>
                     ">
 
-                    {% if student.getPiExcepto() %}
-                    <i class=" material-icons black-text">brightness_1</i>
+                    {% if student.piexento %}
+                    <i class=" material-icons blue-text">brightness_1</i>
                     {% else %}
                     <i class="material-icons {{ student.pi_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i>
                     {% endif %}
@@ -46,8 +46,8 @@
                             <i class='material-icons tiny'>domain</i>{{ student.fct_company }}
                         </div>
                     ">
-                    {% if student.getFctExcepto() %}
-                    <i class=" material-icons black-text">brightness_1</i>
+                    {% if student.fctexento %}
+                    <i class=" material-icons blue-text">brightness_1</i>
                     {% else %}
                     <i class="material-icons {{ student.fct_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i>
                     {% endif %}
