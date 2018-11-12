@@ -19,7 +19,19 @@
                 {% for student in students %}
                     <tr>
                         <td><a href="{{ path('edit_student', {'id': student.id, 'flag': 'index'}) }}">{{ student.__toString() }}</a></td>
-                        <td><a href="{{ student.pi_tutor == '~' ? path('user_pi_new_distribution_project', {'project': student.pi_id, 'flag': 'index','student': student.id}) : path('user_pi_edit_distribution_project',{'id':student.pi_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
+
+                    {% if student.piexento %}
+                        <td><a  class="tooltipped" data-position="top" data-tooltip="
+                            <div class='tooltip'>
+                                <i class='material-icons tiny'>school</i>Exento
+                            </div>
+                            <div class='tooltip'>
+                                <i class='material-icons tiny'>description</i>Exento
+                            </div>
+                        ">
+                        <i class=" material-icons blue-text">brightness_1</i>
+                    {% else %}
+                    <td><a href="{{ student.pi_tutor == '~' ? path('user_pi_new_distribution_project', {'project': student.pi_id, 'flag': 'index','student': student.id}) : path('user_pi_edit_distribution_project',{'id':student.pi_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
                             <i class='material-icons tiny'>school</i>{{ student.pi_tutor }}
                         </div>
@@ -27,10 +39,6 @@
                             <i class='material-icons tiny'>description</i>{{ student.pi_project }}
                         </div>
                     ">
-
-                    {% if student.piexento %}
-                    <i class=" material-icons blue-text">brightness_1</i>
-                    {% else %}
                     <i class="material-icons {{ student.pi_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i>
                     {% endif %}
                 
