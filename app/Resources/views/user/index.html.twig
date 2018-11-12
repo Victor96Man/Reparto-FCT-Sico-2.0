@@ -23,9 +23,6 @@
                     {% if student.piexento %}
                         <td><a  class="tooltipped" data-position="top" data-tooltip="
                             <div class='tooltip'>
-                                <i class='material-icons tiny'>school</i>Exento
-                            </div>
-                            <div class='tooltip'>
                                 <i class='material-icons tiny'>description</i>Exento
                             </div>
                         ">
@@ -46,7 +43,15 @@
                 </a></td>
 
 
-                        <td><a href="{{ student.fct_tutor == '~' ? path('user_fct_new_distribution_company', {'company': student.fct_id, 'flag': 'index','student': student.id}) : path('user_fct_edit_distribution_company',{'id':student.fct_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
+                    {% if student.fctexento %}
+                        <td><a  class="tooltipped" data-position="top" data-tooltip="
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>domain</i>Exento
+                        </div>
+                    ">
+                    <i class=" material-icons blue-text">brightness_1</i>
+                    {% else %}
+                    <td><a href="{{ student.fct_tutor == '~' ? path('user_fct_new_distribution_company', {'company': student.fct_id, 'flag': 'index','student': student.id}) : path('user_fct_edit_distribution_company',{'id':student.fct_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
                             <i class='material-icons tiny'>school</i>{{ student.fct_tutor }}
                         </div>
@@ -54,9 +59,6 @@
                             <i class='material-icons tiny'>domain</i>{{ student.fct_company }}
                         </div>
                     ">
-                    {% if student.fctexento %}
-                    <i class=" material-icons blue-text">brightness_1</i>
-                    {% else %}
                     <i class="material-icons {{ student.fct_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i>
                     {% endif %}
                     
