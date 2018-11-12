@@ -21,7 +21,7 @@
     {% set label = name|humanize %}
 {% endif %}
     <label  for="{{ id }}">
-        <input type="checkbox" {{ block('widget_attributes') }}{% if checked %} checked="checked"{% endif %} />
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
         <span>{{ label }}</span>
     </label>
 {% endspaceless %}
