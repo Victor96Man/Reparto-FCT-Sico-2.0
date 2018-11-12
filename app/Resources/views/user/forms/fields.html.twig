@@ -23,7 +23,7 @@
     <label  for="{{ id }}">
         <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
         <span>{{ label }}</span>
-    </label></br>
+    </label><br></br>
 {% endspaceless %}
 {% endblock checkbox_widget %}
 
