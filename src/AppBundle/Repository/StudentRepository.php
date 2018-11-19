@@ -47,7 +47,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
             ->select('t')
             ->from('AppBundle:Student', 't')
             ->where('t.convocatory = :convocatory_id')
-            ->where('t.fctexento = 0')
+            ->andwhere('t.fctexento = 0')
             ->andWhere('t.id NOT IN(' . implode(",", $arrayIds) . ')')
             ->setParameter('convocatory_id', $convocatory);
 
