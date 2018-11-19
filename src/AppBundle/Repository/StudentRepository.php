@@ -23,7 +23,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
     public function getAllStudentsNoDistribution($convocatory, $type)
     {
         $table = "";
-        if ($type == 'company'){
+        if ($type == 'company')
             $table = 'AppBundle:Distribution_company';
         else
             $table = 'AppBundle:Distribution_project';
