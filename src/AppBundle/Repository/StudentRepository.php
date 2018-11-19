@@ -25,13 +25,20 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
         $table = "";
         if ($type == 'company')
             $table = 'AppBundle:Distribution_company';
+            $q2b = $this->getEntityManager()->createQueryBuilder()
+                ->select('st.id')
+                ->from($table, 'd')
+                ->where('st.fctexento = 0')
+                ->join('d.student', 'st');
         else
             $table = 'AppBundle:Distribution_project';
+            $q2b = $this->getEntityManager()->createQueryBuilder()
+                    ->select('st.id')
+                    ->from($table, 'd')
+                    ->where('st.piexento = 0')
+                    ->join('d.student', 'st');
 
-        $q2b = $this->getEntityManager()->createQueryBuilder()
-            ->select('st.id')
-            ->from($table, 'd')
-            ->join('d.student', 'st');
+
 
         $arrayIds = $this->arrayIdsToString($q2b->getQuery()->getArrayResult());
 
