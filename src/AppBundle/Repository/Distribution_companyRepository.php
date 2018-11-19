@@ -32,6 +32,7 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
                                       AppBundle:User us 
                                       WHERE ds.user = us.id 
                                       AND ds.student = st.id 
+                                      AND st.fctexento = 0
                                       AND ds.company = cp.id
                                       AND st.convocatory = ".intval($convocatory)." ")->getArrayResult();
     }
