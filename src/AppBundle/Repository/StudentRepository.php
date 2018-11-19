@@ -25,20 +25,13 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
         $table = "";
         if ($type == 'company'){
             $table = 'AppBundle:Distribution_company';
-            $q2b = $this->getEntityManager()->createQueryBuilder()
-                ->select('st.id')
-                ->from($table, 'd')
-                ->where('st.fctexento = 0')
-                ->join('d.student', 'st');
-        }else{
+        else
             $table = 'AppBundle:Distribution_project';
-            $q2b = $this->getEntityManager()->createQueryBuilder()
+
+        $q2b = $this->getEntityManager()->createQueryBuilder()
                     ->select('st.id')
                     ->from($table, 'd')
-                    ->where('st.piexento = 0')
                     ->join('d.student', 'st');
-                }
-
 
 
         $arrayIds = $this->arrayIdsToString($q2b->getQuery()->getArrayResult());
@@ -54,6 +47,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
             ->select('t')
             ->from('AppBundle:Student', 't')
             ->where('t.convocatory = :convocatory_id')
+            ->where('t.fctexento = 0')
             ->andWhere('t.id NOT IN(' . implode(",", $arrayIds) . ')')
             ->setParameter('convocatory_id', $convocatory);
 
