@@ -23,20 +23,21 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
     public function getAllStudentsNoDistribution($convocatory, $type)
     {
         $table = "";
-        if ($type == 'company')
+        if ($type == 'company'){
             $table = 'AppBundle:Distribution_company';
             $q2b = $this->getEntityManager()->createQueryBuilder()
                 ->select('st.id')
                 ->from($table, 'd')
                 ->where('st.fctexento = 0')
                 ->join('d.student', 'st');
-        else
+        }else{
             $table = 'AppBundle:Distribution_project';
             $q2b = $this->getEntityManager()->createQueryBuilder()
                     ->select('st.id')
                     ->from($table, 'd')
                     ->where('st.piexento = 0')
                     ->join('d.student', 'st');
+                }
 
 
 
