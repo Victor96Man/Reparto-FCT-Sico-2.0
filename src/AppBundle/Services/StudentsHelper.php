@@ -68,7 +68,7 @@ class StudentsHelper
 
         switch ($action){
             case 'edit':
-                $studentsResult = $studentsRepository->getAllStudentsConvocatory($convocatory);
+                $studentsResult = $studentsRepository->getAllStudentsConvocatoryExento($convocatory,$type);
                 break;
             case 'new':
                 $studentsResult = $studentsRepository->getAllStudentsNoDistribution($convocatory,$type);
