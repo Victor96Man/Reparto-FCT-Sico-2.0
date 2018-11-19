@@ -20,6 +20,7 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
                                       AppBundle:User us 
                                       WHERE ds.user = us.id 
                                       AND ds.student = st.id 
+                                      AND st.fctExento =0
                                       AND ds.company = cp.id")->getArrayResult();
     }
 
@@ -32,6 +33,7 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
                                       AppBundle:User us 
                                       WHERE ds.user = us.id 
                                       AND ds.student = st.id 
+                                      AND st.fctExento =0
                                       AND ds.company = cp.id
                                       AND st.convocatory = ".intval($convocatory)." ")->getArrayResult();
     }
@@ -46,7 +48,7 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
             ->join('dp.company', 'cp')
             ->where('cp.id = :company_id')
             ->andWhere('st.convocatory = :convocatory_id')
-            ->andWhere('st.fctexento = 0')
+            ->andWhere('st.fctExento = 0')
             ->setParameter('company_id', $company)
             ->setParameter('convocatory_id', $convocatory);
 
