@@ -22,27 +22,23 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
 
     public function getAllStudentsConvocatoryExento($convocatory, $type)
     {
-        $control= "";
-        $table = "";
         if ($type == 'company'){
-            $table = 'AppBundle:Distribution_company';
-            $control ="1";
+            $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t')
+            ->from('AppBundle:Student', 't')
+            ->where('t.convocatory = :convocatory_id')
+            ->andwhere('t.fctexento = 0')
+            ->setParameter('convocatory_id', $convocatory);
         }else{
-            $table = 'AppBundle:Distribution_project';
-            $control ="2";
+             $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t')
+            ->from('AppBundle:Student', 't')
+            ->where('t.convocatory = :convocatory_id')
+            ->andwhere('t.piexento = 0')
+            ->setParameter('convocatory_id', $convocatory);
         }
-
-        $q2b = $this->getEntityManager()->createQueryBuilder()
-                    ->select('st.id')
-                    ->from($table, 'd')
-                    ->join('d.student', 'st');
-
-        $arrayIds = $this->arrayIdsToString($q2b->getQuery()->getArrayResult());
-
-        if (count($arrayIds) > 0)
-            return $this->getStudentsNotINExento($convocatory, $arrayIds,$control);
-        return $this->getAllStudentsConvocatory($convocatory);
-
+       
+        return $qb->getQuery()->getResult();
     }
 
     public function getAllStudentsNoDistribution($convocatory, $type)
@@ -95,25 +91,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
 
     public function getStudentsNotINExento($convocatory, $arrayIds,$control)
     {
-        if ($control== "1") {
-            $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t')
-            ->from('AppBundle:Student', 't')
-            ->where('t.convocatory = :convocatory_id')
-            ->andwhere('t.fctexento = 0')
-            ->andWhere('t.id IN(' . implode(",", $arrayIds) . ')')
-            ->setParameter('convocatory_id', $convocatory);
-        }else{
-            $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t')
-            ->from('AppBundle:Student', 't')
-            ->where('t.convocatory = :convocatory_id')
-            ->andwhere('t.piexento = 0')
-            ->andWhere('t.id IN(' . implode(",", $arrayIds) . ')')
-            ->setParameter('convocatory_id', $convocatory);
-        }
-
-        return $qb->getQuery()->getResult();
+        
     }
 
 
