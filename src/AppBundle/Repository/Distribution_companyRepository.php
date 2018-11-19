@@ -19,7 +19,7 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
                                       AppBundle:Company cp,AppBundle:Student st,
                                       AppBundle:User us 
                                       WHERE ds.user = us.id 
-                                      AND ds.student = 8
+                                      AND ds.student = 9
                                       AND ds.company = cp.id")->getArrayResult();
     }
 
@@ -31,7 +31,7 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
                                       AppBundle:Company cp,AppBundle:Student st,
                                       AppBundle:User us 
                                       WHERE ds.user = us.id 
-                                      AND ds.student = 8
+                                      AND ds.student = 9
                                       AND ds.company = cp.id
                                       AND st.convocatory = ".intval($convocatory)." ")->getArrayResult();
     }
