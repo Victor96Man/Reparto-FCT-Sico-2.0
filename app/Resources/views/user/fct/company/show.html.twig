@@ -2,23 +2,39 @@
 {% block title %}SICO: {{ company.getName() }}{% endblock %}
 {% block body %}
     <div class="row mt-2">
-        <div class="col s12 m6 centerTotalVertical z-depth-2 p-1 mt-1">
-            <img src="{{ asset('img/company.svg') }}" alt="" class="img-perfil-company">
-            <div class="row">
-                <div class="attributeUser">
-                    <h5>{{ company.name }}</h5>
+        <div class="col s12 m6 centerTotalVertical p-1 mt-1 z-depth-2">
+            <div class="rc_company_company">
+                <div class="containerImg_rc_Company">
+                    <img src="{{ asset('img/company.svg') }}" alt="" class="img-perfil-company">
                 </div>
-                <div class="attributeUser">
-                    <i class="material-icons prefix">perm_identity</i>
-                    <p>{{ company.cif }}</p>
-                </div>
-                <div class="attributeUser">
-                    <i class="material-icons prefix">mail_outline</i>
-                    <p>{{ company.email }}</p>
-                </div>
-                <div class="attributeUser">
-                    <i class="material-icons prefix">phone</i>
-                    <p>{{ company.phone }}</p>
+                <div class="containerInfo_prev_rc_company">
+                    <p id="titleInfo_prev_rc_company">{{ company.getName() }}</p>
+                    <div class="row">
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">perm_identity</i>
+                            <p>{{ company.name }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">mail_outline</i>
+                            <p>{{ company.email }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">phone</i>
+                            <p>{{ company.phone }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">school</i>
+                            <p>ASIR ({{ company.getNumberOfAsir() }}) / DAW ({{ company.getNumberOfDaw() }})</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">map</i>
+                            <p>{{ company.getHeadquartersOfWork() }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">my_location</i>
+                            <p>{{ company.getHeadquartersPrincipal() }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,6 +54,31 @@
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+        <div class="col m6 s12 w-100">
+            <div class="p-1 mt-1 z-depth-2">
+                <h5>Otros datos</h5>
+                <div class="divider"></div>
+                <h6 class="mt-2">Tutor</h6>
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">person</i>
+                        <span class="title">Nombre: {{ company.getTutor() }}</span>
+                        <p class="subtitle-collection">DNI: {{ company.getNifTutor() }}</p>
+                    </li>
+                </ul>
+                <h6 class="mt-2">Representante legal</h6>
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">person</i>
+                        <span class="title">{{ company.getManager() }}</span>
+                        <p class="subtitle-collection">DNI: {{ company.getNifManager() }}</p>
+                    </li>
+                </ul>
+                <h6 class="mt-2">Tareas a realizar</h6>
+                <p class="title grey-text p-1 z-depth-1">{{ company.getTasksToBeDone() }}</p>
+            </div>
+
         </div>
     </div>
 {% endblock %}

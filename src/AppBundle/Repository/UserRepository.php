@@ -53,7 +53,7 @@ class UserRepository extends EntityRepository
             ->from('AppBundle:Distribution_company', 'dc')
             ->join('dc.student', 'st')
             ->where('dc.user = :user_id')
-            //->groupBy('dc.company')
+            ->groupBy('dc.id')
             ->andWhere('st.convocatory = :convocatory_id')
             ->setParameter('user_id', $userId)
             ->setParameter('convocatory_id', $convocatory);
@@ -68,7 +68,7 @@ class UserRepository extends EntityRepository
             ->from('AppBundle:Distribution_project', 'dp')
             ->join('dp.student', 'st')
             ->where('dp.user = :user_id')
-            //->groupBy('dp.project')
+            ->groupBy('dp.id')
             ->andWhere('st.convocatory = :convocatory_id')
             ->setParameter('user_id', $userId)
             ->setParameter('convocatory_id', $convocatory);

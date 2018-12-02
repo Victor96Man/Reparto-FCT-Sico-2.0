@@ -252,11 +252,11 @@ class Student
     /**
      * Set groupId
      *
-     * @param \AppBundle\Entity\School_group $groupId
+     * @param integer $groupId
      *
      * @return Student
      */
-    public function setGroupId(\AppBundle\Entity\School_group $groupId)
+    public function setGroupId($groupId)
     {
         $this->group = $groupId;
 
@@ -305,11 +305,11 @@ class Student
     /**
      * Set convocatory
      *
-     * @param \AppBundle\Entity\Convocatory $convocatory
+     * @param integer $convocatory
      *
      * @return Student
      */
-    public function setConvocatory(\AppBundle\Entity\Convocatory $convocatory)
+    public function setConvocatory($convocatory)
     {
         $this->convocatory = $convocatory;
 

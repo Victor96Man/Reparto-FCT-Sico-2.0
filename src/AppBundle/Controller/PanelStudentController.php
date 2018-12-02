@@ -8,6 +8,7 @@ use AppBundle\Entity\School_group;
 use AppBundle\Entity\Student;
 use AppBundle\Form\StudentType;
 use AppBundle\Services\ConvocatoriesHelper;
+use AppBundle\Services\RequestStudentHelper;
 use AppBundle\Services\CoursesHelper;
 use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
@@ -33,6 +34,9 @@ class PanelStudentController extends Controller
         /** @var ConvocatoriesHelper $convocatoriesHelper */
         $convocatoriesHelper = $this->get('app.convocatoriesHelper');
 
+        /** @var RequestStudentHelper $requestStudentHelper */
+        $requestStudentHelper = $this->get('app.requestStudent');
+
         /** @var CoursesHelper $coursesHelper */
         $coursesHelper = $this->get('app.coursesHelper');
 
@@ -43,6 +47,8 @@ class PanelStudentController extends Controller
 
         $convocatories = $convocatoriesHelper->getAllConvocatories();
 
+        $request_students = $requestStudentHelper->getAllRequestStudents();
+
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
 
         if ($current_convocatory) {
@@ -51,13 +57,12 @@ class PanelStudentController extends Controller
         }else{
             $students = Array();
         }
-
-
-
+        
         return $this->render('user/student/view.html.twig', array(
             'students' => $students,
             'convocatories' => $convocatories,
             'courses' => $courses,
+            'request_students' => $request_students,
             'cycles' => $cyclesHelper->getCycles()
         ));
     }

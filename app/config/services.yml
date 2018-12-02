@@ -58,6 +58,9 @@ services:
     app.requestCompany:
             class: AppBundle\Services\RequestCompanyHelper
             arguments: ["@doctrine.orm.entity_manager"]
+    app.requestStudent:
+            class: AppBundle\Services\RequestStudentHelper
+            arguments: ["@doctrine.orm.entity_manager"]
     app.twig.app_extension:
             class: AppBundle\Twig\AppExtension
             tags:

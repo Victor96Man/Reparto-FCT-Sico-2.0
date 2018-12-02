@@ -222,9 +222,7 @@ class PanelModuleTeacherController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $distModTeacherRequest = $form->getData();
-            
             if ($distModTeacherRequest->getDesdoble()) {
                 $distModTeacherRequest->setHours($distModTeacherRequest->getModule()->getHoursDesdoble());
             } else {

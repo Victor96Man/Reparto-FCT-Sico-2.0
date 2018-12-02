@@ -132,11 +132,10 @@ class Request_companyController extends Controller
     {
         $em = $this->getDoctrine();
 
-        return $this->render('user/fct/request_company/show.html.twig', array(
+        return $this->render('user/student/request_student/show.html.twig', array(
             'request_company' => $request_company,
         ));
     }
-
 
 
     /**
@@ -175,6 +174,19 @@ class Request_companyController extends Controller
                     $newCompany->setCif($request_company->getCif());
                     $newCompany->setPhone($request_company->getPhone());
                     $newCompany->setEmail($request_company->getEmail());
+                    $newCompany->setSchoolYear($request_company->getSchoolYear());
+                    $newCompany->setHeadquartersOfWork($request_company->getHeadquartersOfWork());
+                    $newCompany->setHeadquartersPrincipal($request_company->getHeadquartersPrincipal());
+                    $newCompany->setContactPerson($request_company->getContactPerson());
+                    $newCompany->setManager($request_company->getManager());
+                    $newCompany->setNifManager($request_company->getNifManager());
+                    $newCompany->setTutor($request_company->getTutor());
+                    $newCompany->setNifTutor($request_company->getNifTutor());
+                    $newCompany->setNumberOfDaw($request_company->getNumberOfDaw());
+                    $newCompany->setNumberOfAsir($request_company->getNumberOfAsir());
+                    $newCompany->setTypeOfWorkDay($request_company->getTypeOfWorkDay());
+                    $newCompany->setTasksToBeDone($request_company->getTasksToBeDone());
+                    $newCompany->setObservations($request_company->getObservations());
 
                     try{
                         $validator = $this->get('validator');

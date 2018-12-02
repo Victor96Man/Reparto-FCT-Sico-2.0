@@ -135,8 +135,6 @@ class Cycle
         $this->school_groups->removeElement($schoolGroup);
     }
 
-
-
     /**
      * Set name
      *

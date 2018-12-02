@@ -1,93 +1,176 @@
 {% extends 'user/base.html.twig' %}
 {% block title %}SICO: Gestión de alumnos{% endblock %}
 {% block body %}
-    <h2>Gestión de alumnos</h2>
-    <div class="row centerVertical">
-        <div class="col s12 m9">
-            <a href="{{ path('new_student') }}" class="waves-effect waves-light btn" id="createStudent">Crear alumnos</a>
+    <h3 class="col s12">Gestión de alumnos</h3>
+    <div class="row">
+        <div class="col s12 p-0">
+            <ul class="tabs z-depth-2 mb-2">
+                <li class="tab col s3">
+                    <a href="#emp" class="active">Alumnos</a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#solemp">Importar alumnos</a>
+                </li>
+            </ul>
         </div>
-        <div class="col s12 m3 ">
-            <select name="" id="selectCycleStudent">
-                <option value="todos">- Elija ciclo -</option>
-                {% for cycle in cycles %}
-                    <option value="{{ cycle.initials }}">{{ cycle.initials }}</option>
+        <div id="emp" class="col s12 p-1">
+           <!-- Inicio bloque listar alumnos -->
+            <div class="row centerVertical">
+                <div class="col s12 m9">
+                    <a href="{{ path('new_student') }}" class="waves-effect waves-light btn" id="createStudent">Crear alumnos</a>
+                </div>
+                <div class="col s12 m3 ">
+                    <select name="" id="selectCycleStudent">
+                        <option value="todos">- Elija ciclo -</option>
+                        {% for cycle in cycles %}
+                            <option value="{{ cycle.initials }}">{{ cycle.initials }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <table class="responsive-table z-depth-1 centered mt-2">
+                <thead class="table-sticky">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Ciclo</th>
+                    <th>Modificar</th>
+                    <th>Borrar</th>
+                </tr>
+                </thead>
+                <tbody id="studentsTable">
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student[0].first_name }}</td>
+                        <td>{{ student[0].last_name }}</td>
+                        <td>{{ student.cycle }}</td>
+                        <td>
+                            <a href="{{ path('edit_student', {'id': student[0].id, 'flag': 'edit'}) }}">
+                                <i class="small material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a data-modal="modalStudent" href="{{ path('delete_student', {'id': student[0].id}) }}"
+                            class="modalDelete modal-trigger">
+                                <i class="small material-icons red-text">delete</i>
+                            </a>
+                        </td>
+                    </tr>
                 {% endfor %}
-            </select>
-        </div>
-    </div>
+                </tbody>
+            </table>
 
-    <table class="responsive-table z-depth-1 centered mt-2">
-        <thead class="table-sticky">
-        <tr>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Ciclo</th>
-            <th>Modificar</th>
-            <th>Borrar</th>
-        </tr>
-        </thead>
-        <tbody id="studentsTable">
-        {% for student in students %}
-            <tr>
-                <td>{{ student[0].first_name }}</td>
-                <td>{{ student[0].last_name }}</td>
-                <td>{{ student.cycle }}</td>
-                <td>
-                    <a href="{{ path('edit_student', {'id': student[0].id, 'flag': 'edit'}) }}">
-                        <i class="small material-icons">edit</i>
-                    </a>
-                </td>
-                <td>
-                    <a data-modal="modalStudent" href="{{ path('delete_student', {'id': student[0].id}) }}"
-                       class="modalDelete modal-trigger">
-                        <i class="small material-icons red-text">delete</i>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <!-- Modal Structure -->
+            <div id="modalStudent" class="modal">
+                <div class="modal-content">
+                    <p>¿Está seguro de borrar el estudiante?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#"
+                    class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                    <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
 
-    <!-- Modal Structure -->
-    <div id="modalStudent" class="modal">
-        <div class="modal-content">
-            <p>¿Está seguro de borrar el estudiante?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#"
-               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
-            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-        </div>
-    </div>
+            <script>
+                {
+                    let selectCycleStudents = function () {
+                        let tr, td, i;
+                        let ciclo = $(this).val();
 
-    <script>
-        {
-            let selectCycleStudents = function () {
-                let tr, td, i;
-                let ciclo = $(this).val();
+                        tr = $("#studentsTable tr");
 
-                tr = $("#studentsTable tr");
-
-                for (i = 0; i < tr.length; i++) {
-                    if (ciclo === "todos") {
-                        tr[i].style.display = "";
-                    } else {
-                        td = tr[i].getElementsByTagName("td")[2];
-                        if (td) {
-                            if (td.innerHTML.toUpperCase().indexOf(ciclo) > -1) {
+                        for (i = 0; i < tr.length; i++) {
+                            if (ciclo === "todos") {
                                 tr[i].style.display = "";
                             } else {
-                                tr[i].style.display = "none";
+                                td = tr[i].getElementsByTagName("td")[2];
+                                if (td) {
+                                    if (td.innerHTML.toUpperCase().indexOf(ciclo) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
                             }
                         }
-                    }
+                    };
+
+                    $(function () {
+                        $("#selectCycleStudent").on("change", selectCycleStudents);
+                    });
                 }
-            };
+            </script>
+           <!-- Fin bloque listar alumnos -->
+        </div>
+        
+        <div id="solemp" class="col p-1 s12 ">
+            
+            <form action="{{ path('user_student_massive_request_student')}}" method="post">
+                <h5>Importación de alumnos</h5>
+                <div class="row">
+                    <div class="col s12 right-align">
+                        <button class="waves-effect waves-light btn-small green" type="submit" name="savemassive">
+                            <i class="material-icons left">save</i>Guardar como alumno
+                        </button>
+                        <button class="waves-effect waves-light btn-small red" type="submit" name="deletemassive">
+                            <i class="material-icons left">delete</i>Eliminar
+                        </button>
+                        <a href="{{ path('user_student_reqcom') }}" class="waves-effect waves-light btn-small">
+                            <i class="material-icons left">cloud_upload</i>Importar
+                        </a>
+                    </div>
+                </div>
 
+                <table class="responsive-table centered z-depth-1">
+                    <thead class="table-sticky">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Ciclo</th>
+                        <th>Convocatoria</th>
+                        <th class="centerCheckboxTH">Seleccionados
+                            <label>
+                                <input type="checkbox" id="boxSolcAll"/>
+                                <span></span>
+                            </label>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-            $(function () {
-                $("#selectCycleStudent").on("change", selectCycleStudents);
-            });
-        }
-    </script>
+                    {% for request in request_students %}
+                        <tr>
+                            <td>{{ request.getFirstName() }}</td>
+                            <td>{{ request.getLastName() }}</td>
+                            <td>{{ request.getGroupId() }}</td>
+                            <td>{{ request.getConvocatory() }}</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" class="boxesSolc" name="solc[{{ request.getId() }}]" />
+                                    <span></span>
+                                </label>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+                <!-- Modal Structure -->
+                <div id="modalReq" class="modal">
+                    <div class="modal-content">
+                        <p>¿Está seguro de borrar las solicitudes?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#"
+                           class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                        <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}
