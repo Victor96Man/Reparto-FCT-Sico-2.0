@@ -34,10 +34,10 @@ class ConfigWebController extends Controller
             ConfigWebType::class, $current_config, array(), $request);
 
         if ($form_convocatory == "ok")
-            return $this->redirectToRoute('user_config',$current_user);
+            return $this->redirectToRoute('user_config', Array("id" => $current_user->getId()));
 
         if ($form_config_global == "ok")
-            return $this->redirectToRoute('user_config',$current_user);
+            return $this->redirectToRoute('user_config',Array("id" => $current_user->getId()));
 
         return $this->render('user/config/view.html.twig', array(
             'formConfigConvocatory' => $form_convocatory->createView(),
