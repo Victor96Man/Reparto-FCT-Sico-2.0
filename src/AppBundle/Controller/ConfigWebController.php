@@ -19,7 +19,7 @@ class ConfigWebController extends Controller
     public function dashboardAction(Request $request, User $current_user)
     {
         if ($this->getUser()->getId() != $current_user->getId())
-            return $this->redirectToRoute('user_config');
+            return $this->redirectToRoute('user_config_user.id');
 
         $optionsConvocatory = Array(
             "convocatories" => $this->get('app.convocatoriesHelper')->prepareOptions(),
@@ -34,10 +34,10 @@ class ConfigWebController extends Controller
             ConfigWebType::class, $current_config, array(), $request);
 
         if ($form_convocatory == "ok")
-            return $this->redirectToRoute('user_config');
+            return $this->redirectToRoute('user_config_user.id');
 
         if ($form_config_global == "ok")
-            return $this->redirectToRoute('user_config');
+            return $this->redirectToRoute('user_config_user.id');
 
         return $this->render('user/config/view.html.twig', array(
             'formConfigConvocatory' => $form_convocatory->createView(),
