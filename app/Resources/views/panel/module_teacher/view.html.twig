@@ -289,50 +289,10 @@
             };
 
             $(function () {
-                let tr, td, i, tdDesdoble;
-                let hours = "";
-                let group = $('#selectGroupDistribution option:selected').text();
-                let contadorHorasActuales = 0;
-                let contadorHorasDesdobleActuales = 0;
-                let textResumenHoras = "";
-                let textResumenHorasDesdoble = "";
-                let horasTotales = 0;
-                let horasTotalesDesdoble = 0;
-
-                tr = $("#distributionTable tr");
-
-                for (i = 0; i < tr.length; i++) {
-
-                    if (group === "- Elija grupo -") {
-                        tr[i].style.display = "";
-                    } else {
-                        td = tr[i].getElementsByTagName("td")[2];
-                        if (td) {
-                            if (td.innerHTML.toUpperCase() === group.toUpperCase()) {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
-                            }
-                        }
-                    }
-                }
-
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[3];
-                    tdDesdoble = tr[i].getElementsByTagName("td")[5];
-
-                    if (tr[i].style.display === "") {
-                        if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "close") {
-                            contadorHorasActuales += parseInt(td.innerHTML);
-                        } else if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "check") {
-                            contadorHorasDesdobleActuales += parseInt(td.innerHTML);
-                        }
-
-                    }
-                }
+                
                 $("#selectCourseDistribution").on("change", changeData);
                 $("#selectGroupDistribution").on("change", changeCourse);
-
+                $("#selectGroupDistribution").trigger('change');
                 resumenHoras = $("#resumenHoras");
                 resumenHorasDesdoble = $("#resumenHorasDesdoble");
 
