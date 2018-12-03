@@ -330,45 +330,6 @@
 
                     }
                 }
-
-                $.ajax({
-                    type: "GET",
-                    url: "{{ path('get_hours_data') }}",
-                    data: {'idGroup': $(this).val(), 'schoolYear': $("#selectCourseDistribution").val()},
-                    success: function (response) {
-                        hours = JSON.parse(response.hours);
-                        if (group === "- Elija curso -") {
-                            horasTotales = {{ totalHours[0].totalHours }};
-                            horasTotalesDesdoble = {{ totalHours[0].totalHoursDesdoble }};
-                        } else {
-                            horasTotales = hours[0].totalHours;
-                            horasTotalesDesdoble = hours[0].totalHoursDesdoble;
-                        }
-
-                        textResumenHoras = contadorHorasActuales + "/" + horasTotales;
-                        textResumenHorasDesdoble = contadorHorasDesdobleActuales + "/" + horasTotalesDesdoble;
-
-                        if (contadorHorasActuales > horasTotales) {
-                            resumenHoras.addClass("warning_up_state");
-                        } else if (contadorHorasActuales < horasTotales) {
-                            resumenHoras.addClass("warning_state");
-                        } else {
-                            resumenHoras.addClass("ok_state");
-                        }
-
-                        if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
-                            resumenHorasDesdoble.addClass("warning_up_state");
-                        } else if (contadorHorasDesdobleActuales < horasTotalesDesdoble) {
-                            resumenHorasDesdoble.addClass("warning_state");
-                        } else {
-                            resumenHorasDesdoble.addClass("ok_state");
-                        }
-
-                        resumenHoras.html(textResumenHoras);
-                        resumenHorasDesdoble.html(textResumenHorasDesdoble);
-
-                    }
-                });
                 $("#selectCourseDistribution").on("change", changeData);
                 $("#selectGroupDistribution").on("change", changeCourse);
 
