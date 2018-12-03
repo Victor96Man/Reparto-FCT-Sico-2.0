@@ -22,11 +22,6 @@ class DistributionModuleTeacherType extends AbstractType
     {
 
         $builder
-            ->add('module', ChoiceType::class, array(
-                'choices' => $options["modules"],
-                'label' => 'Módulo',
-                'data' => $options["module_selected"]
-            ))
             ->add('teacher', ChoiceType::class, array(
                 'choices' => $options["teachers"],
                 'label' => 'Profesor',
@@ -36,6 +31,11 @@ class DistributionModuleTeacherType extends AbstractType
                 'choices' => $options["groups"],
                 'label' => 'Grupo',
                 'data' => $options["group_selected"]
+            ))
+            ->add('module', ChoiceType::class, array(
+                'choices' => $options["modules"],
+                'label' => 'Módulo',
+                'data' => $options["module_selected"]
             ))
             ->add('desdoble', CheckboxType::class, array(
                 'label' => false
@@ -52,12 +52,12 @@ class DistributionModuleTeacherType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Distribution_module_teacher::class,
-            'modules' => null,
-            'module_selected' => null,
             'teachers' => null,
             'teacher_selected' => null,
             'groups' => null,
             'group_selected' => null,
+            'modules' => null,
+            'module_selected' => null,
             'courses' => null,
             'course_selected' => null
         ]);
