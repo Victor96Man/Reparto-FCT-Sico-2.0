@@ -71,7 +71,7 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
             ->setParameter('id_user', $userId);
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
-        return $result;
+        return ($result ? $result : 0);
     }
 
     public function getHours2ByUserId($userId, $schoolYear)
@@ -88,7 +88,7 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
             ->setParameter('id_user', $userId);
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
-        return $result;
+        return ($result ? $result : 0);
     }
 
     public function getHours2()
@@ -101,7 +101,7 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
             ->andWhere('cc.course = 2');
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
-        return $result;
+        return ($result ? $result : 0);
     }
 
     public function getHours()
@@ -111,6 +111,6 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
             ->from('AppBundle:Distribution_module_teacher', 'dmt');
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
-        return $result;
+        return ($result ? $result : 0);
     }
 }
