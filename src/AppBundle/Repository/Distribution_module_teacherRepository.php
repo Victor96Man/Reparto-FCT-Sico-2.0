@@ -91,14 +91,16 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
         return ($result ? $result : 0);
     }
 
-    public function getHours2()
+    public function getHours2($schoolYear)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(dmt.hours)')
             ->from('AppBundle:Distribution_module_teacher', 'dmt')
             ->join('dmt.module', 'm')
             ->join('m.course_cycle', 'cc')
-            ->andWhere('cc.course = 2');
+            ->where('dmt.schoolYear=:schoolYear')
+            ->andWhere('cc.course = 2')
+            ->setParameter('schoolYear', $schoolYear);
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
         return ($result ? $result : 0);

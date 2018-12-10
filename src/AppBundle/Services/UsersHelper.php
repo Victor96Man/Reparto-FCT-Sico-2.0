@@ -94,7 +94,7 @@ class UsersHelper
                 );
                 $porc2 = $this->calcPorc2(
                     $distributionRepository->getHours2ByUserId($teacher->getId(), $currentYear),
-                    $distributionRepository->getHours2()
+                    $distributionRepository->getHours2($currentYear)
                 );
                 $porcCycle = $this->calcPorcCycle(
                     $distributionRepository->getHoursByUserId($teacher->getId(), $currentYear),
