@@ -87,7 +87,7 @@ class UsersHelper
                 $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
                 $sumTeacher = $numFCT + $numPI;
                 $reduct = $this->calcReduction(
-                    $distributionRepository->getHours2ByUserId(
+                    $distributionRepository->getHoursByUserId(
                         $teacher->getId(),
                         $currentYear
                     )
