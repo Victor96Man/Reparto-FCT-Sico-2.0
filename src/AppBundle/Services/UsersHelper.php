@@ -87,7 +87,7 @@ class UsersHelper
                 $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
                 $sumTeacher = $numFCT + $numPI;
                 $reduct = $this->calcReduction(
-                    $distributionRepository->getHoursByUserId(
+                    $distributionRepository->getHours2ByUserId(
                         $teacher->getId(),
                         $currentYear
                     )
@@ -100,10 +100,12 @@ class UsersHelper
                     $distributionRepository->getHoursByUserId($teacher->getId(), $currentYear),
                     $cycleRepository->getHours()
                 );
+
                 $porcReduct = $this->calcPorcReduct(
                     $reduct,
                     $this->sumTotalReduct($teacherResult, $distributionRepository, $currentYear)
                 );
+
                 $ideal2 = ($sumTotalPond * $porc2) / 100;
                 $idealCycle = ($sumTotalPond * $porcCycle) / 100;
                 $idealReduct = ($sumTotalPond * $porcReduct) / 100;
@@ -153,7 +155,7 @@ class UsersHelper
     {
         $sum = 0;
         foreach ($teachers as $teacher) {
-            $sum += $this->calcReduction($distributionRepository->getHoursByUserId(
+            $sum += $this->calcReduction($distributionRepository->getHours2ByUserId(
                 $teacher->getId(),
                 $schoolYear
             ));
@@ -226,6 +228,7 @@ class UsersHelper
             $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
             $sum += $this->calcSumPonderation($numFCT, $numPI);
         }
+
         if ($sum==0) {
             $sum=1;
         }

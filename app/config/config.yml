@@ -82,5 +82,5 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
-        address: sicoiesgc@gmail.com
-        sender_name: Sico-ies
+        address: repartoiesgc@gmail.com
+        sender_name: Reparto-ies
